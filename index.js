@@ -46,11 +46,21 @@ app.use(express.static(config.publicDir));
 
 // -- Routes -------------------------------------------------------------------
 app.get('/', (req, res) => {
-  res.render('index', {includeMetaDescription: true});
+  res.set('Cache-Control', 'max-age=60');
+
+  res.render('news/sunset', {
+    includeMetaDescription: true
+  });
 });
 
 app.get('/faq', (req, res) => {
-  res.redirect('https://github.com/rgrove/rawgit/wiki/Frequently-Asked-Questions');
+  res.redirect('https://github.com/rgrove/rawgit/blob/master/FAQ.md');
+});
+
+app.get('/news/https-only', (req, res) => {
+  res.render('news/https-only', {
+    title: 'RawGit will become HTTPS-only on February 17, 2018'
+  });
 });
 
 // Don't allow requests for Google Webmaster Central verification files.
@@ -65,6 +75,7 @@ app.route(/^\/[0-9A-Za-z-]{1,100}\/[0-9a-f]{1,100}\/raw\/?/)
     middleware.accessControl
   )
   .get(
+    middleware.bloomFilter,
     middleware.fileRedirect(config.baseGistUrl),
     middleware.proxyPath(config.baseGistUrl)
   );
@@ -78,6 +89,7 @@ app.route('/:user/:repo/:branch/*')
     middleware.accessControl
   )
   .get(
+    middleware.bloomFilter,
     middleware.fileRedirect(config.baseRepoUrl),
     middleware.proxyPath(config.baseRepoUrl)
   );

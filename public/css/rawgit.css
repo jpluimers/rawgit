@@ -251,7 +251,42 @@ pre { overflow-x: auto; }
   }
 }
 
+/* -- News ------------------------------------------------------------------ */
+.news {
+  margin: 2em auto;
+  max-width: 720px;
+}
+
+.news h2 {
+  font-size: 1.8em;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.news h3 {
+  margin: 1.9em 0 1.3em;
+}
+
+.news .date {
+  color: #888;
+  display: block;
+  font-size: 12px;
+  text-align: center;
+}
+
+.news-body {
+  margin: 2em 0;
+}
+
 /* -- Misc ------------------------------------------------------------------ */
+.announcement {
+  background: #fdf3d1;
+  border: 1px solid #fceec0;
+  border-radius: 5px;
+  padding: 4px;
+  text-align: center;
+}
+
 .invalid {
   background: #FFF7F7;
   border-color: #FFCCCC;
